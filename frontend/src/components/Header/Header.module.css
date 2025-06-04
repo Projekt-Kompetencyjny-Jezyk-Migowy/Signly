@@ -1,0 +1,30 @@
+@media (max-width:1600px) {
+.header {
+  position: fixed;
+  top: 0;
+  height: 5.5rem;
+  z-index: 999;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: hsla(216, 18%, 16%, 0.8);
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 1rem;
+  width: 25rem;
+  height: 80%;
+}
+
+.buttonWrapper {
+  width: 48%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+}
