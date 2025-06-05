@@ -9,7 +9,7 @@ function Register() {
   const handleNavigateToLogin = () => {
     navigate('/login');
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -34,6 +34,7 @@ function Register() {
     const result = await response.json();
     if (response.ok) {
       alert('Registration successful!');
+      () => handleNavigateToLogin();
     } else {
       alert('Error: ' + JSON.stringify(result));
     }

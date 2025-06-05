@@ -5,6 +5,7 @@ import WelcomePage from './pages/WelcomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CameraTesting from './pages/CameraTesting/CameraTesting';
+import RoutingPage from './pages/RoutingPage';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/camera" element={<CameraTesting />} />
+        <Route path="/routing" element={<RoutingPage />} />
       </Routes>
     </BrowserRouter>
   )
