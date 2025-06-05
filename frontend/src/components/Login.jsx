@@ -1,9 +1,15 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../css/Login.css'
 import Logo from '../assets/logo_final.png'
 
 function Login () {
-    
+    const navigate = useNavigate();
+
+    const handleRegister = () => {
+        navigate('/register');
+    };
+
     const handleLogin = async () => {
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
@@ -48,7 +54,7 @@ function Login () {
                     <input className='input-box' type="password" placeholder='Hasło'/>
                     <button className='login-button'>Zaloguj się</button>
                     <a href='https://youtu.be/dQw4w9WgXcQ' className='login-link'>Nie pamiętasz hasła?</a>
-                    <button className='register-button'>Nowe konto</button>
+                    <button className='register-button' onClick={() => handleRegister()}>Nowe konto</button>
                 </div>
             </div>
         </div>
