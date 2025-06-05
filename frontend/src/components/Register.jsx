@@ -12,7 +12,7 @@ function Register() {
       email: e.target.email.value,
       password: e.target.password.value,
       password2: e.target.passwordRepeat.value,
-      date_of_birth: e.target.dateofbirth.value,
+      date_of_birth: e.target.date_of_birth.value,
       sex: e.target.sex.value,
     };
 
@@ -49,7 +49,7 @@ function Register() {
         <div className='register-detail-wrapper'>
           <div className='register-small-container'>
             <div className='register-text'>Data urodzenia</div>
-            <input type="date" name="dateofbirth" className='register-date-input' required />
+            <input type="date" name="date_of_birth" className='register-date-input' required />
           </div>
           <div className='register-small-container'>
             <div className='register-text'>Płeć</div>
