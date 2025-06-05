@@ -11,4 +11,4 @@ docker-compose build --no-cache
 
 docker-compose up
 
-3. Otworzyć albo poprzez https://localhost/ albo w dockerze kliknąć w port 80:80 
+3. Otworzyć albo poprzez http://localhost/ albo w dockerze kliknąć w port 80:80 
