@@ -34,7 +34,7 @@ function Register() {
     const result = await response.json();
     if (response.ok) {
       alert('Registration successful!');
-      () => handleNavigateToLogin();
+      handleNavigateToLogin();
     } else {
       alert('Error: ' + JSON.stringify(result));
     }
