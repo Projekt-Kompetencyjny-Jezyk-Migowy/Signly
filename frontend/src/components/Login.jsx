@@ -1,7 +1,33 @@
+import { useState } from 'react';
 import '../css/Login.css'
 import Logo from '../assets/logo_final.png'
 
 function Login () {
+    
+    const handleLogin = async () => {
+        const [email, setEmail] = useState('');
+        const [password, setPassword] = useState('');
+        const [error, setError] = useState('');
+
+        const response = await fetch('http://localhost/api/login/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            localStorage.setItem('token', data.token);
+            console.log('Zalogowano! Token:', data.token);
+            // przekieruj np. do dashboardu
+        } else {
+            setError(data.error || 'Błąd logowania');
+        }
+    };
+
     return (
         <div className="login-content">
             <div className="about-container">
