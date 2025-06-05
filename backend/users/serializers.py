@@ -34,7 +34,10 @@ class RegisterSerializer(serializers.ModelSerializer):
             first_name=first_name,
             last_name=last_name,
         )
-        user.profile.date_of_birth = date_of_birth
-        user.profile.sex = sex
-        user.profile.save()
+        Profile.objects.create(
+            user=user,
+            date_of_birth=date_of_birth,
+            sex=sex,
+        )
+
         return user
