@@ -1,4 +1,51 @@
-@media (max-width:1600px) {
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    /* background-color: #fff; */
+}
 
+.webcam {
+    border-radius: 2rem;
+    border: #00ADB5 0.7rem solid;
+}
 
+.controls {
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 35vw;
+    width: 30vw;
+}
+
+.screanshotsWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    width: 40%;
+    height: 100%;
+}
+
+.screenshot {
+    height: 30%;
+    border-radius: 2rem;
+}
+
+.button {
+    padding: 3rem;
+    font-size: 3rem;
+    font-weight: bold;
+    border-radius: 2rem;
+    background-color: #222831;
+    color: #EEEEEE;
+    border: #EAC435 0.7rem solid;
+    cursor: pointer;
+}
+
+.statusWrapper {
+    color: #EEEEEE;
+    font-weight: bold;
+    text-align: center;
 }

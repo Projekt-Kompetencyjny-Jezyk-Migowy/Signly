@@ -1,13 +1,16 @@
 import styles from './Header.module.css'
 import SmallButton from '../SmallButton/SmallButton';
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+    const navigate = useNavigate(); 
+    
     const handleRegisterClick = () => {
-        console.log("Register button clicked");
+        navigate('/register');
     };
 
     const handleLoginClick = () => {
-        console.log("Login button clicked");
+        navigate('/login');
     };
 
     return ( 
@@ -19,7 +22,7 @@ function Header() {
                         color='#00ADB5' 
                         borderColor='#00ADB5' 
                         text='Zarejestruj się' 
-                        onClick={() => handleLoginClick()}
+                        onClick={() => handleRegisterClick()}
                     />
                 </div>
                 <div className={styles.buttonWrapper}>

@@ -123,4 +123,8 @@
     justify-content: center;
     margin-top: 0.6rem;
 }
+
+.register-login-link {
+    color: #00ADB5;
+}
 }

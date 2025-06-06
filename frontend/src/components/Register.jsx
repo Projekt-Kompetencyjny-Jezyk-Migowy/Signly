@@ -1,8 +1,15 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Logo from '../assets/logo_final.png'
 import '../css/Register.css'
 
 function Register() {
+  const navigate = useNavigate();
+
+  const handleNavigateToLogin = () => {
+    navigate('/login');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -27,6 +34,7 @@ function Register() {
     const result = await response.json();
     if (response.ok) {
       alert('Registration successful!');
+      handleNavigateToLogin();
     } else {
       alert('Error: ' + JSON.stringify(result));
     }
@@ -71,7 +79,9 @@ function Register() {
           <button type="submit" className='register-accept-button'>Zarejestruj się</button>
         </div>
         <div className='register-login-wrapper'>
-          <a href='https://youtu.be/qQvIAs-nPSo' className='register-login-link'>Masz już konto?</a>
+          <span onClick={handleNavigateToLogin} className='register-login-link' style={{cursor: 'pointer'}}>
+            Masz już konto?
+          </span>
         </div>
       </form>
     </div>

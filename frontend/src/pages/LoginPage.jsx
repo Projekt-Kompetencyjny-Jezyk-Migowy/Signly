@@ -1,6 +1,6 @@
 import Login from '../components/Login';
 
-function WelcomePage() {
+function LoginPage() {
 
   return (
     <>
@@ -9,4 +9,4 @@ function WelcomePage() {
   )
 }
 
-export default WelcomePage
+export default LoginPage
