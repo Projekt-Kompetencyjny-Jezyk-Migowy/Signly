@@ -1,0 +1,53 @@
+@media (max-width:1600px) {
+  .card {
+    width: 15vw;
+    height: 18vw;
+    background-color: #222831;
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    border: 10px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .contentContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 90%;
+    border-radius: 2rem;
+  }
+
+  .imageWrapper {
+    position: relative; /* so .nameWrapper can be positioned inside */
+    width: 100%;
+    height: 100%;
+  }
+
+  .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 0.2rem;
+  }
+
+  .nameWrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.5rem 0;
+    box-sizing: border-box;
+    border-radius: 0 0 0.2rem 0.2rem;
+  }
+}
