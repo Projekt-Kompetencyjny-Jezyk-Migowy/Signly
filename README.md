@@ -2,6 +2,10 @@ Uruchamianie:
 1. Najpierw skompilować front.
 W folderze frontend w konsoli:
 
+npm install
+
+npm install react-router-dom
+
 npm run build
 
 2. Potem zbudować przez dockera i uruchomić kontenery.
