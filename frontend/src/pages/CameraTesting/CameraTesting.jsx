@@ -27,6 +27,29 @@ function CameraTesting() {
         setRecordingTimeLeft(null);
     };
 
+    const captureSquareScreenshot = () => {
+        const webcam = webcamRef.current;
+        if (!webcam || !webcam.video) return null;
+
+        const video = webcam.video;
+        const videoWidth = video.videoWidth;
+        const videoHeight = video.videoHeight;
+        const size = Math.min(videoWidth, videoHeight);
+
+        const sx = (videoWidth - size) / 2;
+        const sy = (videoHeight - size) / 2;
+
+        const canvas = document.createElement("canvas");
+        canvas.width = size;
+        canvas.height = size;
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(video, sx, sy, size, size, 0, 0, size, size);
+
+        return canvas.toDataURL("image/jpeg");
+    };
+
+
     const captureScreenshots = async () => {
         if (!webcamRef.current) return;
 
@@ -38,26 +61,20 @@ function CameraTesting() {
 
         const shots = [];
 
-        // Start recording timer in background (non-blocking)
         const timerPromise = runRecordingTimer(3);
 
-        // Capture at t=0s
-        const shotStart = webcamRef.current.getScreenshot();
+        const shotStart = captureSquareScreenshot();
         if (shotStart) shots.push(shotStart);
 
         await delay(1500);
-
-        // Capture at t=1.5s
-        const shotMiddle = webcamRef.current.getScreenshot();
+        const shotMiddle = captureSquareScreenshot();
         if (shotMiddle) shots.push(shotMiddle);
 
         await delay(1500);
-
-        // Capture at t=3s
-        const shotEnd = webcamRef.current.getScreenshot();
+        const shotEnd = captureSquareScreenshot();
         if (shotEnd) shots.push(shotEnd);
 
-        await timerPromise; // Ensure countdown finishes
+        await timerPromise;
 
         setScreenshots(shots);
         setIsBusy(false);
