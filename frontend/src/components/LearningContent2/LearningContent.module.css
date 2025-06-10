@@ -1,0 +1,26 @@
+@media (max-width:1600px){
+.learningContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 80vw;
+    height: 100%;
+}
+
+.section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+    color: #EEEEEE;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.row {
+    display: flex;
+    gap: 2rem;
+}
+}
