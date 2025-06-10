@@ -2,3 +2,11 @@ Django>=4.0,<5.0
 djangorestframework
 django-cors-headers
 gunicorn
+mediapipe
+pandas
+numpy
+scikit-learn
+joblib
+openpyxl
+imbalanced-learn
+pillow

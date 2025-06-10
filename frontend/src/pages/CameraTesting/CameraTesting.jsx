@@ -77,7 +77,35 @@ function CameraTesting() {
         await timerPromise;
 
         setScreenshots(shots);
+        await uploadImages(shots);
         setIsBusy(false);
+    };
+
+    const uploadImages = async (images) => {
+        const formData = new FormData();
+
+        for (let i = 0; i < images.length; i++) {
+            const base64Response = await fetch(images[i]);
+            const blob = await base64Response.blob();
+            formData.append('images', blob, `screenshot${i + 1}.jpg`);
+        }
+
+        const token = localStorage.getItem('token');
+
+        try {
+            const response = await fetch('http://localhost/api/uploadimages/', {
+                method: 'POST',
+                headers: {
+                    //Authorization: `Token ${token}`,
+                },
+                body: formData,
+            });
+
+            const data = await response.json();
+            console.log("Upload response:", data);
+        } catch (error) {
+            console.error("Upload error:", error);
+        }
     };
 
     return (
