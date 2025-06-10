@@ -12,7 +12,7 @@ function LearningContent() {
     return (
         <div className={styles.learningContent}>
             <div className={styles.section}>
-                Głoski Statyczne
+                Proste Głoski Statyczne
                 <div className={styles.row}>
                     <Card name='Lekcja A' image={a} borderColor='#EAC435'/>
                     <Card name='Lekcja B' image={b} borderColor='#00ADB5'/>
