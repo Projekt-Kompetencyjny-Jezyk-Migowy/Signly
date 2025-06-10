@@ -18,7 +18,7 @@ function Header() {
             <div className={styles.buttonContainer}>
                 <div className={styles.buttonWrapper}>
                     <SmallButton 
-                        backgroundColor='#1E1825' 
+                        backgroundColor='#222831' 
                         color='#00ADB5' 
                         borderColor='#00ADB5' 
                         text='Zarejestruj się' 
@@ -27,7 +27,7 @@ function Header() {
                 </div>
                 <div className={styles.buttonWrapper}>
                     <SmallButton 
-                        backgroundColor='#1E1825' 
+                        backgroundColor='#222831' 
                         color='#EAC435' 
                         borderColor='#EAC435' 
                         text='Zaloguj się' 

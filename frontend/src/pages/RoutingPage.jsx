@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/SmallButton/SmallButton';
+import Sidebar from '../components/Sidebar/aaa';
+import LearningContent from '../components/LearningContent/LearningContent';
 import styles from './routingPage.module.css'
 
 function RoutingPage() {    
@@ -11,7 +13,9 @@ function RoutingPage() {
     
     return (
         <div className={styles.routingContent}>
-            <div className={styles.buttonWrapper}>
+            <Sidebar />
+            <LearningContent />
+            {/* <div className={styles.buttonWrapper}>
                 <Button 
                     text='Do kamery' 
                     backgroundColor='#222831'
@@ -19,7 +23,7 @@ function RoutingPage() {
                     color='#EEEEEE'
                     onClick={() => onClickHandler()}
                 />
-            </div>
+            </div> */}
         </div>
     )
 }
