@@ -15,7 +15,7 @@ function App() {
         <Route path="/" element={<WelcomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/camera" element={<CameraTesting />} />
+        <Route path="/camera/:letter" element={<CameraTesting />} />
         <Route path="/routing" element={<RoutingPage />} />
       </Routes>
     </BrowserRouter>

@@ -5,9 +5,10 @@ function Card(props) {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        // Optional: Do other logic here (analytics, state updates, etc.)
-        navigate(`/camera`);
+        const letter = props.name.split(' ')[1]; // "Lekcja A" => "A"
+        navigate(`/camera/${letter}`);
     };
+
 
     return (
         <div

@@ -2,20 +2,23 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    /* background-color: #fff; */
 }
 
 .webcam {
     border-radius: 2rem;
-    border: #00ADB5 0.7rem solid;
+    border: #00ADB5 0.5rem solid;
+    width: 100%;
+    aspect-ratio: 1 / 1;   /* KWADRAT */
+    object-fit: cover;     /* przytnij nadmiar, żeby wypełnić */
 }
 
+
 .controls {
-    /* background-color: red; */
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: space-evenly;
-    height: 35vw;
+    height: 90vh;
     width: 30vw;
 }
 
@@ -24,8 +27,13 @@
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
+    border: #EEEEEE solid 0.5rem;
+    text-align: center;
+    font-size: 1.8rem;
+    color: #EEEEEE;
+    border-radius: 2rem;
     width: 40%;
-    height: 100%;
+    height: 50%;
 }
 
 .screenshot {
@@ -34,13 +42,14 @@
 }
 
 .button {
-    padding: 3rem;
-    font-size: 3rem;
+    padding: 1rem 0.5rem;
+    font-size: 2.5rem;
     font-weight: bold;
     border-radius: 2rem;
+    width: 80%;
     background-color: #222831;
     color: #EEEEEE;
-    border: #EAC435 0.7rem solid;
+    border: #EAC435 0.5rem solid;
     cursor: pointer;
 }
 
