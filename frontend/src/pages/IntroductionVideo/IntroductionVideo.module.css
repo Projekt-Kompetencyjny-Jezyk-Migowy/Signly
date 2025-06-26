@@ -1,0 +1,57 @@
+.descriptionContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.descritpionWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    width: 40vw;
+    color: #EEEEEE;
+    padding: 1rem;
+    border: #EEEEEE solid 0.5rem;
+    border-radius: 2rem;
+}
+
+.header {
+    height: 20%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: bold;
+    
+}
+
+.description {
+    height: 80%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.buttonWrapper {
+    width: 20rem;
+    height: 5rem;
+    margin-top: 2rem;
+}
+
+.button {
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    border: #00ADB5 solid 0.5rem;
+    background-color: #222831;
+    color: #EEEEEE;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}

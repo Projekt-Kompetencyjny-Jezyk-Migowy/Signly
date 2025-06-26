@@ -1,29 +1,26 @@
-import { useNavigate } from 'react-router-dom';
-import Button from '../components/SmallButton/SmallButton';
+import { useState } from 'react';
 import Sidebar from '../components/Sidebar/aaa';
-import LearningContent from '../components/LearningContent/LearningContent';
+import LearningContent1 from '../components/LearningContent/LearningContent';
+import LearningContent2 from '../components/LearningContent2/LearningContent';
 import styles from './routingPage.module.css'
 
 function RoutingPage() {    
-    const navigate = useNavigate();
+    const [colorblindMode, setColorblindMode] = useState(() => {
+        const saved = localStorage.getItem('colorblindMode');
+        return saved === 'true'; // 'true' (string) => true (boolean)
+    });
 
-    const onClickHandler = () => {
-        navigate('/camera')
-    }
-    
     return (
         <div className={styles.routingContent}>
-            <Sidebar />
-            <LearningContent />
-            {/* <div className={styles.buttonWrapper}>
-                <Button 
-                    text='Do kamery' 
-                    backgroundColor='#222831'
-                    borderColor='#00AD85'
-                    color='#EEEEEE'
-                    onClick={() => onClickHandler()}
-                />
-            </div> */}
+            <Sidebar 
+                colorblindMode={colorblindMode}
+                setColorblindMode={() => setColorblindMode(prev => !prev)} 
+            />
+            <div className={styles.lessonsList}>
+                <LearningContent1 colorblindMode={colorblindMode} />
+                <LearningContent2 colorblindMode={colorblindMode} />
+                <div className={styles.footer} />
+            </div>
         </div>
     )
 }

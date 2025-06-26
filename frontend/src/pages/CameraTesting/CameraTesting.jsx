@@ -1,13 +1,17 @@
 import React, { useRef, useState } from "react";
 import Webcam from "react-webcam";
+import { useParams } from 'react-router-dom';
 import styles from './CameraTesting.module.css';
 
 function CameraTesting() {
+    const { letter } = useParams();
+    const expectedLetter = letter?.toUpperCase() || "A";
     const webcamRef = useRef(null);
     const [screenshots, setScreenshots] = useState([]);
     const [countdown, setCountdown] = useState(null);
     const [recordingTimeLeft, setRecordingTimeLeft] = useState(null);
     const [isBusy, setIsBusy] = useState(false);
+    const [result, setResult] = useState(null);
 
     const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -49,13 +53,13 @@ function CameraTesting() {
         return canvas.toDataURL("image/jpeg");
     };
 
-
     const captureScreenshots = async () => {
         if (!webcamRef.current) return;
 
         setIsBusy(true);
         setScreenshots([]);
         setRecordingTimeLeft(null);
+        setResult(null);
 
         await runCountdown(3);
 
@@ -103,12 +107,13 @@ function CameraTesting() {
 
             const data = await response.json();
             console.log("Upload response:", data);
+
+            setResult(data);
+
         } catch (error) {
             console.error("Upload error:", error);
         }
     };
-
-
     return (
         <div className={styles.container}>
             <div className={styles.controls}>
@@ -119,8 +124,16 @@ function CameraTesting() {
                     className={styles.webcam}
                 />
 
-                <button onClick={captureScreenshots} disabled={isBusy} className={styles.button}>
-                    {isBusy ? "Working..." : "Start Capture"}
+                <button
+                    onClick={handleButtonClick}
+                    disabled={isBusy}
+                    className={styles.button}
+                >
+                    {isBusy
+                        ? "Working..."
+                        : (isCorrect && confidence >= 0.5)
+                            ? "Przejdź dalej"
+                            : "Start Capture"}
                 </button>
 
                 <div className={styles.statusWrapper}>
@@ -135,9 +148,36 @@ function CameraTesting() {
             </div>
 
             <div className={styles.screanshotsWrapper}>
-                {screenshots.map((src, i) => (
-                    <img key={i} src={src} alt={`Screenshot ${i + 1}`} className={styles.screenshot}/>
-                ))}
+                {result ? (
+                    result.error ? (
+                        <p style={{ color: "red" }}>
+                            ⚠️ {result.error}
+                        </p>
+                    ) : (
+                        <div className={styles.detectedLetter}>
+                            <h1>{result.predicted_letter.toUpperCase()}</h1>
+                            <p>Confidence: {(confidence * 100).toFixed(1)}%</p>
+
+                            {isCorrect ? (
+                                confidence < 0.5 ? (
+                                    <h2 style={{ color: "orange" }}>
+                                        ⚠️ Wykryto literę, ale mało dokładnie, spróbuj ponownie.
+                                    </h2>
+                                ) : (
+                                    <h2>
+                                        <span style={{ color: "green" }}>✅ Correct!</span>
+                                    </h2>
+                                )
+                            ) : (
+                                <h2 style={{ color: "red" }}>
+                                    ❌ Wykryto złą literę, spróbuj ponownie.
+                                </h2>
+                            )}
+                        </div>
+                    )
+                ) : (
+                    <p>No result yet.</p>
+                )}
             </div>
         </div>
     );

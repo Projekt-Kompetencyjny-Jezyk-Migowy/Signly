@@ -2,7 +2,7 @@ import styles from './Sidebar.module.css'
 import Button from '../SmallButton/SmallButton'
 import Logo from '../../assets/logo_final.png'
 
-function Sidebar() {
+function Sidebar( {setColorblindMode, colorblindMode} ) {
     return (
         <div className={styles.sidebar}>
             <div className={styles.logoWrapper}>
@@ -11,25 +11,26 @@ function Sidebar() {
             <div className={styles.buttonWrapper}>
                 <Button 
                     text='Nauka'
-                    backgroundColor='#EAC435'
+                    backgroundColor={colorblindMode ? '#EAC435' : '#FFFFFF'}
                 />
             </div>
             <div className={styles.buttonWrapper}>
                 <Button 
                     text='Statystyki'
-                    backgroundColor='#00ADB5'
+                    backgroundColor={colorblindMode ? '#00ADB5' : '#FFFFFF'}
                 />
             </div>
             <div className={styles.buttonWrapper}>
                 <Button 
-                    text='Ustawienia'
-                    backgroundColor='#00ADB5'
+                    text={colorblindMode ? 'Tryb dla daltonistów' : 'Tryb normalny'}
+                    backgroundColor={colorblindMode ? '#00ADB5' : '#FFFFFF'}
+                    onClick={setColorblindMode}
                 />
             </div>
             <div className={styles.buttonWrapper}>
                 <Button 
                     text='Wyloguj'
-                    backgroundColor='#00ADB5'
+                    backgroundColor={colorblindMode ? '#00ADB5' : '#FFFFFF'}
                 />
             </div>
         </div>

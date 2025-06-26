@@ -1,21 +1,27 @@
 import styles from './LearningContent.module.css'
 import Card from '../Card/Card';
-import Sign from '../../assets/sign.jpg'
+
+import m from '../../assets/m.jpg'
+import n from '../../assets/n.jpg'
+import o from '../../assets/o.jpg'
+import p from '../../assets/p.jpg'
+import r from '../../assets/r.jpg'
+import s from '../../assets/s.jpg'
 
 function LearningContent() {
     return (
         <div className={styles.learningContent}>
             <div className={styles.section}>
-                Głoski Statyczne
+                Skomplikowane Głoski Statyczne
                 <div className={styles.row}>
-                    <Card name='Lekcja A' image={Sign} borderColor='#00ADB5'/>
-                    <Card name='Lekcja B' image={Sign} borderColor='#00ADB5'/>
-                    <Card name='Lekcja C' image={Sign} borderColor='#00ADB5'/>
+                    <Card name='Lekcja M' image={m} borderColor='#EEEEEE'/>
+                    <Card name='Lekcja N' image={n} borderColor='#EEEEEE'/>
+                    <Card name='Lekcja O' image={o} borderColor='#EEEEEE'/>
                 </div>
                 <div className={styles.row}>
-                    <Card name='Lekcja D' image={Sign} borderColor='#00ADB5'/>
-                    <Card name='Lekcja E' image={Sign} borderColor='#EAC435'/>
-                    <Card name='Lekcja F' image={Sign} borderColor='#EAC435'/>
+                    <Card name='Lekcja P' image={p} borderColor='#EEEEEE'/>
+                    <Card name='Lekcja R' image={r} borderColor='#EEEEEE'/>
+                    <Card name='Lekcja S' image={s} borderColor='#EEEEEE'/>
                 </div>
             </div>
         </div>
