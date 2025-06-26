@@ -94,13 +94,13 @@ function CameraTesting() {
             formData.append('images', blob, `screenshot${i + 1}.jpg`);
         }
 
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('accessToken');
 
         try {
             const response = await fetch('http://localhost/api/uploadimages/', {
                 method: 'POST',
                 headers: {
-                    // Authorization: `Token ${token}`,
+                    Authorization: `Bearer ${token}`,
                 },
                 body: formData,
             });
@@ -114,21 +114,6 @@ function CameraTesting() {
             console.error("Upload error:", error);
         }
     };
-
-    const isCorrect = result && !result.error && result.predicted_letter
-        ? result.predicted_letter.toUpperCase() === expectedLetter.toUpperCase()
-        : null;
-
-    const confidence = result?.confidence || 0;
-
-    const handleButtonClick = () => {
-        if (isCorrect && confidence >= 0.5) {
-            window.location.href = '/routing';
-        } else {
-            captureScreenshots();
-        }
-    };
-
     return (
         <div className={styles.container}>
             <div className={styles.controls}>

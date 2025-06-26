@@ -16,3 +16,15 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.email
+
+class LetterStatistic(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    letter = models.CharField(max_length=5)
+    correct_count = models.IntegerField(default=0)
+    incorrect_count = models.IntegerField(default=0)
+
+    class Meta:
+        unique_together = ('user', 'letter')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.letter}: {self.correct_count}/{self.incorrect_count}"

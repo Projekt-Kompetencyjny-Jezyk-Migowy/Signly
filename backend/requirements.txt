@@ -10,3 +10,4 @@ joblib
 openpyxl
 imbalanced-learn
 pillow
+djangorestframework-simplejwt
