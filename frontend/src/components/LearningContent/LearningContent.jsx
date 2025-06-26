@@ -8,7 +8,7 @@ import e from '../../assets/e.jpg'
 import i from '../../assets/i.jpg'
 import l from '../../assets/l.jpg'
 
-function LearningContent() {
+function LearningContent( {colorblindMode} ) {
     return (
         <div className={styles.learningContent}>
             <div className={styles.section}>
