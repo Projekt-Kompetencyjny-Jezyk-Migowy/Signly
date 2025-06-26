@@ -1,8 +1,10 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.authtoken.models import Token
 from rest_framework import status
 from .serializers import RegisterSerializer, LoginSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 import os
 import mediapipe as mp
@@ -19,6 +21,8 @@ from sklearn.decomposition import PCA
 from joblib import load
 import cv2
 
+from .models import LetterStatistic
+
 class RegisterView(APIView):
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
@@ -33,8 +37,11 @@ class LoginView(APIView):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.validated_data['user']
-            token, _ = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key}, status=status.HTTP_200_OK)
+            refresh = RefreshToken.for_user(user)
+            return Response({
+                'access': str(refresh.access_token),
+                'refresh': str(refresh)
+            }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
@@ -88,7 +95,14 @@ def apply_grouped_pca(X, n_components=1):
     return pd.concat([pca_lm_0, pca_lm_1, pca_lm_2, vec_features], axis=1)
     
 class ImageUpload(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def post(self, request, *args, **kwargs):
+        expected_letter = request.data.get('expected_letter')
+        if not expected_letter:
+            return Response({"error": "Brakuje oczekiwanej litery"}, status=400)
+        
         images = request.FILES.getlist('images')
         if not images or len(images) < 3:
             return Response({"error": "Wymagane 3 zdjęcia!"}, status=status.HTTP_400_BAD_REQUEST)
@@ -101,7 +115,6 @@ class ImageUpload(APIView):
             filename = f'image{idx+1}.jpg'
             filepath = os.path.join(save_dir, filename)
 
-            # Save the uploaded image file to disk
             with open(filepath, 'wb') as f:
                 for chunk in image_file.chunks():
                     f.write(chunk)
@@ -132,7 +145,6 @@ class ImageUpload(APIView):
 
         df = pd.DataFrame([all_data])
 
-        # Predykcja
         try:
             X_pca = apply_grouped_pca(df)
             sample = [X_pca.iloc[0]]
@@ -140,10 +152,23 @@ class ImageUpload(APIView):
             proba_dict = dict(zip(CLASS_NAMES, np.round(proba, 4)))
             most_likely = max(proba_dict, key=proba_dict.get)
             confidence = float(proba_dict[most_likely])
-
-            return Response({
-                "predicted_letter": most_likely,
-                "confidence": confidence
-            })
         except Exception as e:
             return Response({"error": f"Processing failed: {str(e)}"}, status=500)
+
+        stat, _ = LetterStatistic.objects.get_or_create(
+            user=request.user,
+            letter=expected_letter
+        )
+
+        if most_likely == expected_letter:
+            stat.correct_count += 1
+        else:
+            stat.incorrect_count += 1
+
+        stat.save()
+
+        return Response({
+            "predicted_letter": most_likely,
+            "confidence": confidence,
+            "is_correct": most_likely == expected_letter
+        })

@@ -19,23 +19,30 @@ function Login () {
     };
 
     const handleLogin = async () => {
-        const response = await fetch('http://localhost/api/login/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-        });
+        try {
+            const response = await fetch('http://localhost/api/login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
 
-        const data = await response.json();
+            const data = await response.json();
+            console.log(data);
 
-        if (response.ok) {
-            localStorage.setItem('token', data.token);
-            console.log('Zalogowano! Token:', data.token);
-            // przekieruj np. do dashboardu
-            handleLoginButton();
-        } else {
-            setError(data.error || 'Błąd logowania');
+            if (response.ok) {
+                localStorage.setItem('accessToken', data.access);
+                localStorage.setItem('refreshToken', data.refresh);
+
+                console.log('Zalogowano! Access token:', data.access);
+                handleLoginButton();
+            } else {
+                setError(data.detail || 'Błąd logowania');
+            }
+        } catch (err) {
+            console.error('Błąd połączenia z API:', err);
+            setError('Nie udało się połączyć z serwerem');
         }
     };
 
