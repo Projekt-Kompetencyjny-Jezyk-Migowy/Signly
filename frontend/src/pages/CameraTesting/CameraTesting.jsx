@@ -90,13 +90,13 @@ function CameraTesting() {
             formData.append('images', blob, `screenshot${i + 1}.jpg`);
         }
 
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('accessToken');
 
         try {
             const response = await fetch('http://localhost/api/uploadimages/', {
                 method: 'POST',
                 headers: {
-                    //Authorization: `Token ${token}`,
+                    Authorization: `Bearer ${token}`,
                 },
                 body: formData,
             });
@@ -107,6 +107,7 @@ function CameraTesting() {
             console.error("Upload error:", error);
         }
     };
+
 
     return (
         <div className={styles.container}>
