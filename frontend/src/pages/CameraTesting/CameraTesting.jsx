@@ -114,6 +114,21 @@ function CameraTesting() {
             console.error("Upload error:", error);
         }
     };
+
+    const isCorrect = result && !result.error && result.predicted_letter
+        ? result.predicted_letter.toUpperCase() === expectedLetter.toUpperCase()
+        : null;
+
+    const confidence = result?.confidence || 0;
+
+    const handleButtonClick = () => {
+        if (isCorrect && confidence >= 0.5) {
+            window.location.href = '/routing';
+        } else {
+            captureScreenshots();
+        }
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.controls}>

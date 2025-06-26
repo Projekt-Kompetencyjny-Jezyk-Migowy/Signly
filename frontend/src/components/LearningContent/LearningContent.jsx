@@ -14,14 +14,14 @@ function LearningContent( {colorblindMode} ) {
             <div className={styles.section}>
                 Proste Głoski Statyczne
                 <div className={styles.row}>
-                    <Card name='Lekcja A' image={a} borderColor='#EAC435'/>
-                    <Card name='Lekcja B' image={b} borderColor='#00ADB5'/>
-                    <Card name='Lekcja C' image={c} borderColor='#00ADB5'/>
+                    <Card name='Lekcja A' image={a} borderColor={colorblindMode ? '#EAC435' : '#FFFFFF'} />
+                    <Card name='Lekcja B' image={b} borderColor={colorblindMode ? '#00ADB5' : '#FFFFFF'} />
+                    <Card name='Lekcja C' image={c} borderColor={colorblindMode ? '#00ADB5' : '#FFFFFF'} />
                 </div>
                 <div className={styles.row}>
-                    <Card name='Lekcja E' image={e} borderColor='#00ADB5'/>
-                    <Card name='Lekcja I' image={i} borderColor='#00ADB5'/>
-                    <Card name='Lekcja L' image={l} borderColor='#00ADB5'/>
+                    <Card name='Lekcja E' image={e} borderColor={colorblindMode ? '#00ADB5' : '#FFFFFF'} />
+                    <Card name='Lekcja I' image={i} borderColor={colorblindMode ? '#00ADB5' : '#FFFFFF'} />
+                    <Card name='Lekcja L' image={l} borderColor={colorblindMode ? '#00ADB5' : '#FFFFFF'} />
                 </div>
             </div>
         </div>
