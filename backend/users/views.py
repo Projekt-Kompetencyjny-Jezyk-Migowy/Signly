@@ -43,7 +43,22 @@ class LoginView(APIView):
                 'refresh': str(refresh)
             }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
+class UserStatisticsView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        stats = LetterStatistic.objects.filter(user=request.user)
+        data = [
+            {
+                "letter": stat.letter,
+                "correct": stat.correct_count,
+                "incorrect": stat.incorrect_count
+            }
+            for stat in stats
+        ]
+        return Response(data)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
