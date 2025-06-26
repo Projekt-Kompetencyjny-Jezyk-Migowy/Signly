@@ -21,6 +21,8 @@ from sklearn.decomposition import PCA
 from joblib import load
 import cv2
 
+from .models import LetterStatistic
+
 class RegisterView(APIView):
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
@@ -97,6 +99,10 @@ class ImageUpload(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
+        expected_letter = request.data.get('expected_letter')
+        if not expected_letter:
+            return Response({"error": "Brakuje oczekiwanej litery"}, status=400)
+        
         images = request.FILES.getlist('images')
         if not images or len(images) < 3:
             return Response({"error": "Wymagane 3 zdjęcia!"}, status=status.HTTP_400_BAD_REQUEST)
@@ -109,7 +115,6 @@ class ImageUpload(APIView):
             filename = f'image{idx+1}.jpg'
             filepath = os.path.join(save_dir, filename)
 
-            # Save the uploaded image file to disk
             with open(filepath, 'wb') as f:
                 for chunk in image_file.chunks():
                     f.write(chunk)
@@ -140,7 +145,6 @@ class ImageUpload(APIView):
 
         df = pd.DataFrame([all_data])
 
-        # Predykcja
         try:
             X_pca = apply_grouped_pca(df)
             sample = [X_pca.iloc[0]]
@@ -148,10 +152,23 @@ class ImageUpload(APIView):
             proba_dict = dict(zip(CLASS_NAMES, np.round(proba, 4)))
             most_likely = max(proba_dict, key=proba_dict.get)
             confidence = float(proba_dict[most_likely])
-
-            return Response({
-                "predicted_letter": most_likely,
-                "confidence": confidence
-            })
         except Exception as e:
             return Response({"error": f"Processing failed: {str(e)}"}, status=500)
+
+        stat, _ = LetterStatistic.objects.get_or_create(
+            user=request.user,
+            letter=expected_letter
+        )
+
+        if most_likely == expected_letter:
+            stat.correct_count += 1
+        else:
+            stat.incorrect_count += 1
+
+        stat.save()
+
+        return Response({
+            "predicted_letter": most_likely,
+            "confidence": confidence,
+            "is_correct": most_likely == expected_letter
+        })
