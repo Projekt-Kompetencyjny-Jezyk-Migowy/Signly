@@ -81,11 +81,11 @@ function CameraTesting() {
         await timerPromise;
 
         setScreenshots(shots);
-        await uploadImages(shots);
+        await uploadImages(shots, letter.toLowerCase());
         setIsBusy(false);
     };
 
-    const uploadImages = async (images) => {
+    const uploadImages = async (images, expectedLetter) => {
         const formData = new FormData();
 
         for (let i = 0; i < images.length; i++) {
@@ -93,7 +93,7 @@ function CameraTesting() {
             const blob = await base64Response.blob();
             formData.append('images', blob, `screenshot${i + 1}.jpg`);
         }
-
+        formData.append('expected_letter', expectedLetter);
         const token = localStorage.getItem('accessToken');
 
         try {
